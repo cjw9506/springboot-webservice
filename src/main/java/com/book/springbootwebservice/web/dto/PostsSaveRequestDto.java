@@ -1,14 +1,17 @@
 package com.book.springbootwebservice.web.dto;
 
 import com.book.springbootwebservice.domain.Posts.Posts;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
 public class PostsSaveRequestDto {
 
+    @NotEmpty(message = "제목은 필수입니다.")
     private String title;
     private String content;
     private String author;
