@@ -15,12 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-@Slf4j
 @Controller
-@RequiredArgsConstructor
 public class IndexController {
-
-    private final PostsService postsService;
 
     @GetMapping("/")
     public String index() {
