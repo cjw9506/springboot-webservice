@@ -1,10 +1,13 @@
 package com.book.springbootwebservice.web;
 
+//import com.book.springbootwebservice.config.auth.dto.SessionUser;
+import com.book.springbootwebservice.config.auth.dto.SessionUser;
 import com.book.springbootwebservice.domain.Posts.Posts;
 import com.book.springbootwebservice.domain.Posts.PostsRepository;
 import com.book.springbootwebservice.service.posts.PostsService;
 import com.book.springbootwebservice.web.dto.PostsResponseDto;
 import com.book.springbootwebservice.web.dto.PostsSaveRequestDto;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +25,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class IndexController {
 
     private final PostsService postsService;
+    private final HttpSession httpSession;
 
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("posts", postsService.findAll());
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "index";
     }
 
@@ -41,7 +50,5 @@ public class IndexController {
         model.addAttribute("post", dto);
         return "posts-update";
     }
-
-
 
 }
